@@ -1,0 +1,185 @@
+/* Espaciado de la sección y margen al navegar con el Navbar fijo. */
+.services-section {
+  padding: 64px clamp(16px, 2.5vw, 48px) 160px;
+  scroll-margin-top: 140px;
+}
+
+.services-container {
+  max-width: 1680px;
+  margin-inline: auto;
+}
+
+.services-heading {
+  max-width: 720px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.services-eyebrow {
+  margin-bottom: 14px;
+  color: #352044;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.services-heading h2 {
+  margin: 0 0 20px;
+  color: var(--white);
+  font-size: clamp(28px, 3.2vw, 42px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+}
+
+.services-heading h2 span {
+  color: var(--yellow-light);
+}
+
+.services-introduction {
+  color: #352044;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* Las seis tarjetas comparten una sola fila en escritorio. */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin-inline: auto;
+  gap: 12px;
+  text-align: left;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  background: linear-gradient(145deg, #624b7d, #49335f);
+  box-shadow: 0 8px 24px rgba(48, 29, 74, 0.08);
+  color: var(--white);
+  scroll-margin-top: 140px;
+  transform: perspective(900px) rotateX(0) rotateY(0);
+  transform-origin: center;
+  transition: transform 320ms ease, border-color 240ms ease, box-shadow 320ms ease;
+}
+
+.service-card:focus-within {
+  border-color: var(--yellow-light);
+}
+
+/* Inclinación 3D: un lateral se aleja para dar profundidad al pasar el mouse.
+   Ajusta rotateX y rotateY para cambiar la intensidad del efecto. */
+@media (hover: hover) and (pointer: fine) {
+  .service-card:hover {
+    transform: perspective(900px) rotateX(4deg) rotateY(-7deg) translateY(-4px);
+    border-color: var(--yellow-light);
+    box-shadow: 12px 18px 30px rgba(48, 29, 74, 0.2);
+  }
+}
+
+.service-card-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 14px;
+  border-radius: 9px;
+  background: var(--yellow-light);
+  color: #49335f;
+}
+
+.service-card-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.service-card h3 {
+  margin: 0 0 10px;
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.service-card p {
+  margin: 0 0 10px;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.service-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin-top: auto;
+  color: var(--yellow-light);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.service-card-link:hover {
+  color: var(--yellow);
+}
+
+.service-card-link:focus-visible {
+  outline: 2px solid var(--yellow-light);
+  outline-offset: 5px;
+  border-radius: 3px;
+}
+
+@media (max-width: 1000px) {
+  .services-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+}
+
+@media (max-width: 760px) {
+  .services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .services-section,
+  .service-card {
+    scroll-margin-top: 240px;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-section {
+    padding-top: 48px;
+  }
+
+  .services-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .service-card {
+    width: 100%;
+    max-width: 360px;
+    justify-self: center;
+    padding: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-card {
+    transition: none;
+  }
+
+  .service-card:hover,
+  .service-card:focus-within {
+    transform: none;
+  }
+}
