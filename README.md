@@ -1,5 +1,18 @@
 # React + Vite
 
+## Estructura del proyecto
+
+- `src/main.jsx`: punto de entrada de React y estilos globales.
+- `src/App.jsx`: componente principal que muestra `Home`.
+- `src/pages/Home/`: página de inicio con su componente y estilos.
+- `src/components/Navbar/`: espacio reservado para la barra de navegación; sus archivos están vacíos.
+- `src/assets/`: imágenes importadas desde los componentes.
+- `public/`: recursos públicos, como `icons.svg` y `favicon.svg`.
+
+Actualmente solo se muestra la página de inicio; no hay un router configurado.
+Las páginas van en `src/pages` y los componentes reutilizables en `src/components`.
+Desde `src/pages/Home/Home.jsx`, las imágenes se importan con `../../assets/`.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
