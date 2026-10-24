@@ -1,95 +1,57 @@
-# Cómo editar Nuestros servicios
+# Editar Nuestros servicios
 
-Es una sección de la página de inicio, no una página independiente.
-Se inserta con `<Services />` al final de `src/pages/Home/Home.jsx`, después de la portada.
+La sección está en Inicio, después de la portada. Ahora muestra únicamente la
+galería curva de imágenes: se retiraron las cards de resumen y el botón de pausa.
+Los archivos de los componentes se conservan.
 
-## Dónde editar cada cosa
+## Textos y datos
 
-| Qué quieres modificar | Archivo | Qué buscar |
-| --- | --- | --- |
-| Etiqueta «Ideas que conectan» | `src/components/Services/Services.jsx` | `services-eyebrow` |
-| Título «Nuestros servicios» | `src/components/Services/Services.jsx` | `services-title` |
-| Palabra del título con otro color | `src/components/Services/Services.jsx` | `<span>servicios</span>` |
-| Descripción general bajo el título | `src/components/Services/Services.jsx` | `services-introduction` |
-| Nombre de cada servicio | `src/config/services.js` | Propiedad `label` |
-| Descripción de cada card | `src/config/services.js` | Propiedad `description` |
-| Orden de las tarjetas | `src/config/services.js` | Orden de los objetos de la lista |
-| Dibujos de los iconos | `src/components/Services/Services.jsx` | Objeto `icons` |
-| Texto «Consultar servicio» | `src/components/Services/Services.jsx` | Texto dentro del enlace de la card |
-| Teléfono de WhatsApp | `src/config/whatsapp.js` | `phoneNumber` |
-| Mensaje de consulta de las cards | `src/components/Services/Services.jsx` | `href` del enlace |
+- src/components/Services/Services.jsx: etiqueta superior, título e introducción.
+- src/config/services.js: lista de servicios. label es el nombre visible;
+  description es la descripción accesible del enlace de la imagen.
+- Conserva cada id: conecta el Navbar con la imagen correspondiente.
+- src/config/whatsapp.js: teléfono usado al consultar un servicio.
 
-Los nombres de `services.js` también se muestran en el desplegable del Navbar.
-Conserva los `id`: conectan las opciones del desplegable con las tarjetas y los iconos.
-Para agregar un servicio, agrega un objeto con un `id` único, `label` y `description`,
-y añade su icono con la misma clave en `icons`. Si cambias la cantidad de tarjetas,
-revisa también el número de columnas del CSS.
+## Imágenes
 
-## Colores en Services.css
+Cada servicio puede tener image (una imagen importada o una ruta pública) e
+imagePosition (el encuadre CSS de object-position). Agrega las imágenes a
+src/assets e impórtalas desde src/config/services.js. Si no se proporciona image,
+la galería reutiliza fondo.jpg con diferentes encuadres.
 
-Todos estos selectores están en `src/components/Services/Services.css`.
+## Tamaños y colores
 
-| Elemento | Selector | Propiedad que debes cambiar |
-| --- | --- | --- |
-| Etiqueta superior | `.services-eyebrow` | `color` |
-| Título de la sección | `.services-heading h2` | `color` |
-| Palabra destacada del título | `.services-heading h2 span` | `color` |
-| Descripción general | `.services-introduction` | `color` |
-| Fondo de las tarjetas | `.service-card` | Los dos colores de `background: linear-gradient(...)` |
-| Borde de las tarjetas | `.service-card` | `border` |
-| Descripción de las tarjetas | `.service-card` | `color`, heredado por el párrafo |
-| Título de cada tarjeta | `.service-card h3` | `color` |
-| Fondo del recuadro del icono | `.service-card-icon` | `background` |
-| Color del dibujo del icono | `.service-card-icon` | `color` |
-| Enlace de consulta | `.service-card-link` | `color` |
-| Enlace al pasar el mouse | `.service-card-link:hover` | `color` |
-| Borde y sombra al inclinarse | `.service-card:hover` | `border-color` y `box-shadow` |
+En src/components/Services/Services.css están los márgenes de la sección, el
+ancho del contenedor y los colores y tamaños del encabezado.
 
-El fondo lavanda detrás de las tarjetas viene de `.home` en
-`src/pages/Home/Home.css`: usa `var(--page-background)`.
-Su valor se cambia en `src/styles/variables.css`.
+En src/components/Services/ServiceGallery.css:
 
-`var(--yellow-light)`, `var(--yellow)` y `var(--white)` también se definen en
-`variables.css`. Cambiar una variable afecta todos los lugares que la usan.
-Para cambiar solo un elemento, modifica el color directamente en su selector de
-`Services.css`. Un color `#...` o `rgba(...)` ya está definido en ese selector.
+| Selector o variable | Qué controla |
+| --- | --- |
+| --gallery-card-width | Ancho adaptable de cada imagen |
+| --gallery-card-height | Alto de cada imagen |
+| --gallery-gap | Separación entre imágenes |
+| .service-gallery-stage | Perspectiva y desvanecido lateral con mask-image |
+| .service-gallery-tile | Fondo, borde, esquinas y sombra |
+| .service-gallery-caption | Nombre sobre la imagen y degradado inferior |
+| .service-gallery-link:focus-visible | Borde al navegar con teclado |
 
-## Tamaños y distribución
+La paleta y el fondo de la página se cambian en src/styles/variables.css.
 
-- `.services-container` → `max-width`: ancho máximo del conjunto.
-- `.services-grid` → `grid-template-columns: repeat(6, minmax(0, 1fr))`: seis tarjetas por fila en escritorio.
-- `.services-grid` → `gap`: separación entre tarjetas.
-- `.service-card` → `padding`: espacio interior; `border-radius`: redondeo.
-- `.service-card h3` y `.service-card p` → `font-size`: tamaño de nombres y descripciones.
-- `.service-card-icon` → `width` y `height`: tamaño del recuadro del icono.
-- `.service-card-icon svg` → `width` y `height`: tamaño del dibujo.
-- `.services-section` → `padding`: espacio antes, a los lados y después de la sección.
+## Movimiento y revisión
 
-Las reglas `@media` del final adaptan la distribución: hasta 1100 px son tres
-columnas, hasta 760 px son dos y hasta 480 px es una. Esas reglas pueden reemplazar
-valores de arriba cuando la ventana es más pequeña.
+En ServiceGallery.jsx, speed cambia la velocidad, depth la profundidad de los
+laterales y curvature la elevación de los extremos. ResizeObserver ajusta el
+recorrido al cambiar el ancho de pantalla sin perder la posición relativa.
 
-## Animación de profundidad
+La fila se repite tres veces para que el movimiento sea continuo. Solo la primera
+copia tiene los seis destinos del Navbar y paradas de teclado; las repeticiones
+no duplican contenido para lectores de pantalla. Las imágenes enlazan a WhatsApp.
 
-Busca `.service-card:hover` dentro de `@media (hover: hover) and (pointer: fine)`:
+No hay botón de pausa. La animación se detiene al pasar el mouse, enfocar un enlace
+con teclado, salir de la pantalla o cambiar de pestaña. Con reducir movimiento
+activado se muestran seis imágenes en una fila desplazable manualmente.
 
-- `perspective(900px)` controla la perspectiva; valores menores acentúan el efecto.
-- `rotateX(4deg)` inclina la tarjeta verticalmente.
-- `rotateY(-7deg)` hace que un lateral se aleje.
-- `translateY(-4px)` la levanta un poco.
-- `transition` en `.service-card` controla la duración y suavidad.
-
-El efecto se aplica a dispositivos con mouse. La regla
-`prefers-reduced-motion` lo desactiva cuando el usuario solicita menos movimiento.
-
-## Tipografías
-
-En `src/index.css`, `--heading` controla titulares y `--sans` los textos de lectura.
-Las fuentes se cargan en `src/styles/fonts.css`. Lexend está incluida; Monument
-Extended utiliza una instalación local mientras no se agregue su archivo al proyecto.
-
-## Ver los cambios
-
-Ejecuta `npm run dev` y abre la dirección que muestra la terminal.
-Guarda los archivos para ver los cambios. Mantén las comillas, comas y llaves al
-editar la lista de servicios; los comentarios no aparecen en la página.
+Seleccionar un servicio en el Navbar centra su imagen, incluso si se vuelve a
+seleccionar el mismo servicio. Con teclado, Tab enfoca y centra cada uno de los
+seis servicios y permite salir de la galería sin quedar atrapado.

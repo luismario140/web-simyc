@@ -3,13 +3,13 @@
 El diseño usa el ancho disponible, no el nombre del dispositivo.
 No se necesitan versiones separadas de la página.
 
-| Ancho de la ventana | Tarjetas por fila | Navbar |
+| Ancho de la ventana | Galería de servicios | Navbar |
 | --- | --- | --- |
-| Hasta 480 px | 1 | Botón Menú |
-| De 481 a 760 px | 2 | Botón Menú |
-| De 761 a 820 px | 3 | Botón Menú |
-| De 821 a 1100 px | 3 | Enlaces visibles |
-| Desde 1101 px | 6 | Enlaces visibles |
+| Hasta 480 px | Fila curva con imágenes compactas | Botón Menú |
+| De 481 a 760 px | Fila curva con imágenes compactas | Botón Menú |
+| De 761 a 820 px | Imágenes de ancho adaptable | Botón Menú |
+| De 821 a 1100 px | Imágenes de ancho adaptable | Enlaces visibles |
+| Desde 1101 px | Fila curva limitada al ancho del contenedor | Enlaces visibles |
 
 ## Dónde cambiar las medidas
 
@@ -21,8 +21,10 @@ No se necesitan versiones separadas de la página.
   controla el botón Menú y el panel móvil. Los enlaces conservan su color blanco.
 - `src/pages/Home/Home.css`: tamaños adaptables, encuadre del fondo y separación
   entre el Navbar y los textos. El alto puede crecer cuando el texto lo requiere.
-- `src/components/Services/Services.css`: columnas, espacios y tamaños de tarjetas.
+- `src/components/Services/Services.css`: encabezado y espacios de la sección.
   El contenedor está limitado a 1680 px para monitores grandes.
+- `src/components/Services/ServiceGallery.css`: ancho, alto, separación y desvanecido
+  de las imágenes. `ServiceGallery.jsx` ajusta su posición al cambiar la resolución.
 - `src/components/Footer/Footer.css`: tres columnas en escritorio; marca arriba
   y dos columnas debajo en tablet; una columna en celulares.
 - `src/components/WhatsAppBubble/WhatsAppBubble.css`: posición de la burbuja,
@@ -40,9 +42,10 @@ dispositivo solicita reducir movimiento.
 Ejecuta `npm run dev` y usa el modo de dispositivos del navegador (F12).
 Prueba anchos de 320, 390, 768, 1024, 1366, 1920 y 2560 px, así como un celular
 en horizontal. Comprueba abrir y cerrar Menú, desplegar Servicios y seleccionar
-SIMYC Consulting. El menú debe cerrarse y la tarjeta debe quedar visible debajo
-del Navbar. Escape cierra primero Servicios y después el menú móvil.
+SIMYC Consulting. El menú debe cerrarse y su imagen debe quedar visible debajo
+del Navbar. Escape cierra primero el desplegable y después el menú móvil.
 
 En monitores grandes se limita el ancho del contenido; los fondos siguen
 ocupando toda la ventana. En pantallas pequeñas los textos se ajustan y las
-tarjetas bajan de fila sin necesitar desplazamiento horizontal.
+imágenes se adaptan dentro de la galería sin desbordar la página. Con reducir
+movimiento activado, la fila de imágenes se desplaza manualmente.
