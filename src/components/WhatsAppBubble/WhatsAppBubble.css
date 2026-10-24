@@ -51,6 +51,7 @@ a.whatsapp-bubble:hover {
 }
 
 .whatsapp-message {
+  min-width: 0;
   position: relative;
   padding: 12px 18px;
   border-radius: 18px;

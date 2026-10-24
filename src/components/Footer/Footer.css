@@ -1,7 +1,8 @@
 .site-footer {
   position: relative;
   isolation: isolate;
-  padding: 56px clamp(24px, 5vw, 96px) 24px;
+  /* Reserva espacio para WhatsApp en todos los tamaños, también en tablets. */
+  padding: 56px var(--page-gutter) calc(100px + env(safe-area-inset-bottom));
   color: var(--white);
   text-align: left;
 }
@@ -44,6 +45,7 @@
 }
 
 .footer-brand {
+  min-width: 0;
   max-width: 360px;
 }
 
@@ -54,7 +56,7 @@
 
 .footer-brand img {
   display: block;
-  width: 220px;
+  width: min(220px, 100%);
   max-width: 100%;
   height: auto;
   filter: drop-shadow(0 1px 2px rgba(87, 65, 111, 0.25));
@@ -81,6 +83,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  justify-content: center;
 }
 
 .footer-social-icon {
@@ -152,11 +155,16 @@
   line-height: 1.6;
 }
 
-@media (max-width: 900px) {
+/* TABLETS: marca arriba y navegación/redes en dos columnas debajo. */
+@media (max-width: 1000px) {
   .footer-content {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     justify-items: center;
     text-align: center;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
   }
 
   .footer-social {
@@ -168,6 +176,8 @@
 @media (max-width: 600px) {
   .site-footer {
     padding-top: 36px;
+    /* Deja el texto legal por encima de la burbuja de WhatsApp. */
+    padding-bottom: calc(100px + env(safe-area-inset-bottom));
   }
 
   .footer-navigation {
@@ -175,6 +185,7 @@
   }
 
   .footer-content {
+    grid-template-columns: minmax(0, 1fr);
     gap: 28px;
     padding-bottom: 28px;
   }

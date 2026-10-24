@@ -2,7 +2,8 @@ import { services } from '../../config/services.js'
 import { whatsappConfig } from '../../config/whatsapp.js'
 import './Services.css'
 
-// Iconos de las tarjetas: cada uno corresponde al id de un servicio.
+// ICONOS: cada clave coincide con el id del servicio en src/config/services.js.
+// Los dibujos son SVG; su tamaño y color se ajustan en Services.css.
 const icons = {
   'simyc-marketing': <><path d="m4 10 12-5v14L4 14zM16 10h3a2 2 0 0 1 0 4h-3M6 15l2 6h3l-2-5M20 4l2-2M21 19l1 1" /></>,
   'simyc-media': <><rect x="2" y="4" width="20" height="13" rx="2" /><path d="M8 21h8M12 17v4m-2-13 5 3-5 3z" /></>,
@@ -18,8 +19,11 @@ function Services() {
       <div className="services-container">
         {/* ENCABEZADO: cambia aquí el título y la introducción de la sección. */}
         <header className="services-heading">
+          {/* ETIQUETA SUPERIOR: texto pequeño sobre el título. */}
           <p className="services-eyebrow">Ideas que conectan</p>
+          {/* TÍTULO: lo que está dentro de span lleva el color de énfasis. */}
           <h2 id="services-title">Nuestros <span>servicios</span></h2>
+          {/* DESCRIPCIÓN GENERAL: párrafo que presenta los seis servicios. */}
           <p className="services-introduction">
             De la estrategia a la pantalla: soluciones para crear, proyectar y acercar tu marca a las personas.
           </p>
@@ -28,6 +32,7 @@ function Services() {
         {/* TARJETAS: sus textos se editan en src/config/services.js. */}
         <div className="services-grid">
           {services.map((service) => (
+            // ESTRUCTURA DE CADA CARD: icono, nombre, descripción y enlace.
             <article className="service-card" key={service.id} id={service.id} aria-labelledby={`${service.id}-title`}>
               <span className="service-card-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -36,7 +41,9 @@ function Services() {
               </span>
               <h3 id={`${service.id}-title`}>{service.label}</h3>
               <p>{service.description}</p>
-              {/* CONTACTO: abre una consulta de WhatsApp sobre esta tarjeta. */}
+              {/* BOTÓN/ENLACE: cambia abajo "Consultar servicio" para editar su texto.
+                  El teléfono viene de src/config/whatsapp.js.
+                  El mensaje se arma en href e incluye el nombre del servicio. */}
               <a
                 className="service-card-link"
                 href={`https://wa.me/${whatsappConfig.phoneNumber}?text=${encodeURIComponent(`Hola, quiero conocer más sobre ${service.label}.`)}`}
