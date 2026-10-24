@@ -1,0 +1,241 @@
+/* CARRUSEL 3D: colores y tamaños concentrados aquí para personalizarlo. */
+.simyc-carousel {
+  --carousel-gold: var(--yellow-light);
+  --carousel-card-width: 330px;
+  --carousel-card-height: 440px;
+  width: 100%;
+  min-width: 0;
+  color: var(--white);
+}
+
+.simyc-carousel-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 550px;
+  overflow: hidden;
+  perspective: 1100px;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+.simyc-carousel-stage:active { cursor: grabbing; }
+
+.simyc-carousel-cylinder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.simyc-carousel-face {
+  position: absolute;
+  top: calc(var(--carousel-card-height) / -2);
+  left: calc(var(--carousel-card-width) / -2);
+  width: var(--carousel-card-width);
+  height: var(--carousel-card-height);
+  backface-visibility: hidden;
+}
+
+.simyc-carousel-card,
+.simyc-carousel-detail {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(196, 167, 240, 0.28);
+  border-radius: 26px;
+  background: radial-gradient(ellipse at 90% 0%, rgba(132, 84, 189, 0.35), transparent 65%), linear-gradient(155deg, #392052, #20112f 75%);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.08), 0 22px 60px rgba(10, 3, 22, 0.4);
+  color: var(--white);
+  text-align: left;
+}
+
+.simyc-carousel-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 26px;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 200ms, box-shadow 200ms;
+}
+
+.simyc-carousel-card.is-active {
+  border-color: rgba(244, 178, 35, 0.65);
+  box-shadow: inset 0 1px rgba(255, 226, 168, 0.15), 0 0 34px rgba(244, 178, 35, 0.07), 0 24px 60px rgba(10, 3, 22, 0.4);
+}
+
+.simyc-carousel-card-brand {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 28px;
+  color: rgba(250, 234, 221, 0.65);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+}
+
+.simyc-carousel-signal {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--carousel-gold);
+  box-shadow: 0 0 12px var(--carousel-gold);
+}
+
+.simyc-carousel-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 62px;
+  height: 62px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(244, 178, 35, 0.3);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(244, 178, 35, 0.15), rgba(244, 178, 35, 0.02));
+  color: var(--carousel-gold);
+  box-shadow: inset 0 1px rgba(255, 228, 175, 0.1);
+}
+
+.simyc-carousel-watermark {
+  position: absolute;
+  z-index: -1;
+  right: -70px;
+  top: 30px;
+  width: 250px;
+  max-width: none;
+  opacity: 0.045;
+  transform: rotate(-20deg);
+  pointer-events: none;
+}
+
+.simyc-carousel-card h3,
+.simyc-carousel-detail h3 {
+  margin: 0 0 14px;
+  color: var(--white);
+  font-size: 24px;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+}
+
+.simyc-carousel-card p,
+.simyc-carousel-detail p {
+  margin: 0;
+  color: rgba(250, 234, 221, 0.85);
+  font-size: 14px;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+
+.simyc-carousel-card p {
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.simyc-carousel-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(244, 178, 35, 0.14);
+  color: var(--carousel-gold);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.simyc-carousel-halo {
+  position: absolute;
+  inset: 8% 15%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(143, 86, 219, 0.21), transparent 70%);
+  pointer-events: none;
+}
+
+.simyc-carousel-orbit {
+  position: absolute;
+  bottom: 7px;
+  width: min(84%, 840px);
+  height: 62px;
+  border: 1px solid rgba(244, 178, 35, 0.16);
+  border-radius: 50%;
+  box-shadow: 0 0 25px rgba(244, 178, 35, 0.025);
+  pointer-events: none;
+}
+
+.simyc-carousel-close {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid rgba(244, 178, 35, 0.35);
+  border-radius: 50%;
+  background: rgba(41, 20, 63, 0.9);
+  color: var(--carousel-gold);
+  cursor: pointer;
+}
+
+.simyc-carousel-close:hover { background: #4d2a70; }
+
+.simyc-carousel-instructions {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.simyc-carousel-caption {
+  min-height: 24px;
+  margin: 14px 0 0;
+  color: rgba(250, 234, 221, 0.7);
+  font-size: 13px;
+  text-align: center;
+}
+
+.simyc-carousel:focus-visible,
+.simyc-carousel button:focus-visible { outline: 2px solid var(--carousel-gold); outline-offset: 4px; }
+.simyc-carousel-dialog {
+  --carousel-gold: var(--yellow-light);
+  width: min(540px, calc(100% - 32px));
+  max-height: calc(100svh - 48px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 26px;
+  background: transparent;
+  overflow: auto;
+}
+.simyc-carousel-dialog::backdrop { background: rgba(14, 5, 26, 0.78); backdrop-filter: blur(8px); }
+.simyc-carousel-detail { padding: 40px; }
+.simyc-carousel-detail .simyc-carousel-card-brand { padding-right: 42px; }
+.simyc-carousel-detail p { font-size: 17px; }
+.simyc-carousel-close { position: absolute; z-index: 1; top: 18px; right: 18px; width: 36px; height: 36px; }
+
+@media (max-width: 640px) {
+  .simyc-carousel { --carousel-card-width: 270px; --carousel-card-height: 430px; }
+  .simyc-carousel-stage { height: 510px; perspective: 900px; mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent); }
+  .simyc-carousel-card { padding: 24px; }
+  .simyc-carousel-card h3 { font-size: 22px; }
+  .simyc-carousel-card-brand { margin-bottom: 22px; }
+  .simyc-carousel-icon { width: 56px; height: 56px; margin-bottom: 20px; }
+  .simyc-carousel-detail { padding: 30px 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .simyc-carousel-card { transition: none; }
+}

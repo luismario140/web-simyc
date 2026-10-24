@@ -1,0 +1,30 @@
+/* Utilidades de Tailwind disponibles para componentes de ui.
+   Se omite Preflight para conservar los estilos globales existentes. */
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@theme inline {
+  --color-background: var(--page-background);
+  --color-foreground: var(--white);
+  --color-card: #301d4a;
+  --color-card-foreground: var(--white);
+  --color-popover: #301d4a;
+  --color-popover-foreground: var(--white);
+  --color-primary: var(--yellow-light);
+  --color-primary-foreground: var(--page-background);
+  --color-secondary: var(--purple);
+  --color-secondary-foreground: var(--white);
+  --color-muted: #392052;
+  --color-muted-foreground: #d1c5df;
+  --color-accent: var(--purple);
+  --color-accent-foreground: var(--white);
+  --color-destructive: #fb5050;
+  --color-border: #68517c;
+  --color-input: #68517c;
+  --color-ring: var(--yellow-light);
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+}
