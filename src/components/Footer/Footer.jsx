@@ -1,5 +1,5 @@
 import brandLogo from '../../assets/Logo1.png'
-import { aboutHref, contactLinks, portfolioPdf } from '../../config/navigation.js'
+import { aboutHref, portfolioPdf, socialLinks as defaultSocialLinks } from '../../config/navigation.js'
 import './Footer.css'
 
 const socialChannels = [
@@ -25,7 +25,7 @@ const socialChannels = [
   },
 ]
 
-function Footer({ socialLinks = {} }) {
+function Footer({ socialLinks = defaultSocialLinks }) {
   return (
     <footer className="site-footer">
       <div className="footer-content">
@@ -45,18 +45,8 @@ function Footer({ socialLinks = {} }) {
             <li><a href="#servicios">Servicios</a></li>
             <li><a href={portfolioPdf} target="_blank" rel="noopener noreferrer">Portafolio</a></li>
             <li><a href={aboutHref}>Nosotros</a></li>
-            <li>
-              <details className="footer-contact">
-                <summary>Contacto</summary>
-                <ul aria-label="Opciones de contacto">
-                  {contactLinks.map(({ id, label, href, target }) => (
-                    <li key={id}>
-                      {href ? <a href={href} target={target} rel={target === '_blank' ? 'noopener noreferrer' : undefined}>{label}</a> : <span aria-disabled="true">{label}</span>}
-                    </li>
-                  ))}
-                </ul>
-              </details>
-            </li>
+            {/* Contacto directo al correo; el desplegable pertenece al Navbar. */}
+            <li><a href={socialLinks.email || defaultSocialLinks.email}>Contacto</a></li>
           </ul>
         </nav>
 

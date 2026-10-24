@@ -1,19 +1,33 @@
 import { aboutContent } from '../../config/about.js'
+import NeuralBackground from '../../components/NeuralBackground/NeuralBackground.jsx'
+import resource1 from '../../assets/imgrecurses/recurso1.png'
+import resource2 from '../../assets/imgrecurses/recurso2.png'
+import resource3 from '../../assets/imgrecurses/recurso3.png'
+import resource4 from '../../assets/imgrecurses/recurso4.png'
 import './About.css'
+
+const backgroundResources = [resource1, resource2, resource3, resource4]
 
 function About() {
   return (
     <article className="about-page" aria-labelledby="about-title">
+      {/* RECURSOS DECORATIVOS: detrás de la red y del contenido.
+          Posición, tamaño y opacidad de cada imagen se ajustan en About.css. */}
+      <div className="about-background-resources" aria-hidden="true">
+        {backgroundResources.map((src, index) => (
+          <img className={`about-background-resource about-background-resource--${index + 1}`} key={src} src={src} alt="" decoding="async" draggable={false} />
+        ))}
+      </div>
+      <NeuralBackground />
       <div className="about-content">
         <p className="about-eyebrow">Nosotros</p>
         <h1 id="about-title">{aboutContent.title}</h1>
         {/* ESCALERA: el CSS alterna los lados; en celular conserva el orden texto → imagen.
             Textos, imágenes y encuadres se editan en src/config/about.js. */}
         <div className="about-sections">
-          {aboutContent.sections.map(({ id, title, paragraphs, image, imageAlt, imagePosition }, index) => (
+          {aboutContent.sections.map(({ id, title, paragraphs, image, imageAlt, imagePosition }) => (
             <section className="about-section" key={id} aria-labelledby={`about-${id}`}>
               <div className="about-section-copy">
-                <span className="about-section-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
                 <h2 id={`about-${id}`}>{title}</h2>
                 {paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               </div>
@@ -33,9 +47,9 @@ function About() {
           </div>
           {[0, 1].map((side) => (
             <ul className={`about-overview-cards about-overview-cards--${side === 0 ? 'left' : 'right'}`} key={side}>
-              {aboutContent.overview.cards.slice(side * 3, side * 3 + 3).map(({ id, title, description }, index) => (
+              {aboutContent.overview.cards.slice(side * 3, side * 3 + 3).map(({ id, title, description }) => (
                 <li className="about-overview-card" key={id}>
-                  <span className="about-overview-number" aria-hidden="true">{String(side * 3 + index + 1).padStart(2, '0')}</span>
+                  <span className="about-overview-dot" aria-hidden="true" />
                   <h3>{title}</h3>
                   {description && <p>{description}</p>}
                 </li>
@@ -43,7 +57,6 @@ function About() {
             </ul>
           ))}
         </section>
-        <a className="about-services-link" href="#servicios">Conoce nuestros servicios <span aria-hidden="true">→</span></a>
       </div>
     </article>
   )

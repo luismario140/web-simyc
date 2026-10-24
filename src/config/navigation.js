@@ -8,9 +8,9 @@ export const aboutHref = '#/quienes-somos'
 // REDES SOCIALES: pega aquí los enlaces oficiales completos de SIMYC.
 // Una cadena vacía mantiene la opción visible sin enviar a una cuenta incorrecta.
 export const socialLinks = {
-  instagram: '',
-  tiktok: '',
-  facebook: '',
+  instagram: 'https://www.instagram.com/simyc_operadorlogistico?mdxt=bjJtM2RmbXIzeW4x',
+  tiktok: 'https://www.tiktok.com/@simycoperadorlogistico?_r=1&_t=ZS-9AoQVLUioyb',
+  facebook: 'https://www.facebook.com/share/1C3VLdUikd/?mibextid=wwXIfr',
   email: 'mailto:operadorlogisticosimyc@gmail.com',
 }
 
