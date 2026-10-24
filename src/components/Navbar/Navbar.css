@@ -52,7 +52,9 @@
   display: inline-flex;
   align-items: center;
   position: relative;
-  left: 0;
+  /* Conserva el desplazamiento hacia la izquierda en monitores amplios,
+     limitado al espacio disponible para no recortar el logo en móvil o portátil. */
+  left: clamp(-420px, calc((var(--content-width) - 100vw) / 2 + var(--page-gutter)), 0px);
   min-height: 56px;
   color: #fff;
   text-decoration: none;
