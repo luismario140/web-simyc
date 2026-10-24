@@ -6,7 +6,7 @@
 // Las cadenas y listas vacías reservan el espacio sin mostrar textos de ejemplo.
 export const aboutContent = {
   title: 'Quiénes somos',
-  // SIMYC EN UNA MIRADA: las primeras tres cards van a la izquierda; las otras a la derecha.
+  // SIMYC EN UNA MIRADA: estos seis bloques definen el recorrido del carrusel 3D.
   // Agrega el contenido oficial de cada card en description. Vacío no muestra texto de ejemplo.
   overview: {
     title: 'SIMYC en una mirada',

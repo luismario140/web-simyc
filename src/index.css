@@ -1,5 +1,6 @@
 @import './styles/variables.css';
 @import './styles/fonts.css';
+@import './styles/tailwind.css';
 
 :root {
   --text: var(--purple-text);

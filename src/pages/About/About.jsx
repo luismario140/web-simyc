@@ -1,5 +1,6 @@
 import { aboutContent } from '../../config/about.js'
 import NeuralBackground from '../../components/NeuralBackground/NeuralBackground.jsx'
+import { ThreeDPhotoCarousel } from '../../components/ui/3d-carousel'
 import resource1 from '../../assets/imgrecurses/recurso1.png'
 import resource2 from '../../assets/imgrecurses/recurso2.png'
 import resource3 from '../../assets/imgrecurses/recurso3.png'
@@ -38,24 +39,14 @@ function About() {
             </section>
           ))}
         </div>
-        {/* SIMYC EN UNA MIRADA: título central y dos columnas de tres cards.
-            Edita sus títulos y descripciones en overview, dentro de src/config/about.js. */}
+        {/* SIMYC EN UNA MIRADA: carrusel 3D; contenido en src/config/about.js.
+            Adornos, tamaño y colores de las tarjetas en components/ui/3d-carousel.css. */}
         <section className="about-overview" aria-labelledby="about-overview-title">
           <div className="about-overview-heading">
             <h2 id="about-overview-title">{aboutContent.overview.title}</h2>
             <p>{aboutContent.overview.description}</p>
           </div>
-          {[0, 1].map((side) => (
-            <ul className={`about-overview-cards about-overview-cards--${side === 0 ? 'left' : 'right'}`} key={side}>
-              {aboutContent.overview.cards.slice(side * 3, side * 3 + 3).map(({ id, title, description }) => (
-                <li className="about-overview-card" key={id}>
-                  <span className="about-overview-dot" aria-hidden="true" />
-                  <h3>{title}</h3>
-                  {description && <p>{description}</p>}
-                </li>
-              ))}
-            </ul>
-          ))}
+          <ThreeDPhotoCarousel cards={aboutContent.overview.cards} label={aboutContent.overview.title} />
         </section>
       </div>
     </article>

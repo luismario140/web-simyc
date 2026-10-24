@@ -215,20 +215,16 @@
   }
 }
 
-/* SIMYC EN UNA MIRADA: tamaño y colores de las cards pequeñas.
-   Las columnas laterales contienen tres cards cada una; el centro queda para el título. */
+/* SIMYC EN UNA MIRADA: encabezado y carrusel 3D.
+   El diseño de las tarjetas está en src/components/ui/3d-carousel.css. */
 .about-overview {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr);
-  grid-template-areas: 'left heading right';
-  align-items: center;
-  gap: clamp(24px, 4vw, 56px);
   padding-block: clamp(40px, 6vw, 80px);
 }
 
 .about-overview-heading {
-  grid-area: heading;
   min-width: 0;
+  max-width: 640px;
+  margin: 0 auto 28px;
   text-align: center;
 }
 
@@ -241,78 +237,4 @@
 .about-overview-heading p {
   font-size: 15px;
   line-height: 1.8;
-}
-
-.about-overview-cards {
-  display: grid;
-  align-content: start;
-  gap: 16px;
-  min-width: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.about-overview-cards--left { grid-area: left; }
-.about-overview-cards--right { grid-area: right; }
-
-.about-overview-card {
-  min-width: 0;
-  min-height: 112px;
-  padding: 20px 22px;
-  border: 1px solid rgba(250, 234, 221, 0.12);
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(82, 76, 98, 0.92), rgba(48, 45, 58, 0.9));
-  overflow-wrap: anywhere;
-}
-
-/* Puntos decorativos: ajusta el tamaño y las sombras para cambiar su brillo. */
-.about-overview-dot {
-  display: block;
-  width: 8px;
-  height: 8px;
-  margin-block: 3px 14px;
-  border-radius: 50%;
-  background: var(--yellow-light);
-  box-shadow: 0 0 6px rgba(244, 178, 35, 0.9), 0 0 16px rgba(244, 178, 35, 0.45);
-}
-
-.about-overview-card h3 {
-  margin: 0;
-  color: var(--white);
-  font-size: 17px;
-  line-height: 1.4;
-}
-
-.about-overview-card p {
-  margin-top: 12px;
-  font-size: 14px;
-  line-height: 1.75;
-}
-
-/* TABLET: título arriba y dos columnas de cards para conservar su legibilidad. */
-@media (max-width: 1000px) {
-  .about-overview {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-areas: 'heading heading' 'left right';
-    gap: 28px;
-  }
-
-  .about-overview-heading {
-    max-width: 480px;
-    margin-inline: auto;
-  }
-}
-
-/* CELULAR: título y seis cards en una columna, respetando el orden del contenido. */
-@media (max-width: 600px) {
-  .about-overview {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: 'heading' 'left' 'right';
-    gap: 16px;
-  }
-
-  .about-overview-heading {
-    margin-bottom: 16px;
-  }
 }
