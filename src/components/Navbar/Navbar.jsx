@@ -2,12 +2,12 @@ import { useEffect, useId, useRef, useState } from 'react'
 import brandLogo from '../../assets/Logo1.png'
 import { services } from '../../config/services.js'
 // El PDF se importa desde docs para que Vite lo incluya también al publicar la web.
-import portfolioPdf from '../../../docs/PortafolioSIMYC.pdf?url'
+import { aboutHref, contactLinks, portfolioPdf } from '../../config/navigation.js'
 import './Navbar.css'
 
 // NOSOTROS: edita aquí los nombres y los destinos del desplegable.
 const aboutLinks = [
-  { label: 'Quiénes somos', href: '#quienes-somos' },
+  { label: 'Quiénes somos', href: aboutHref },
   { label: 'Preguntas frecuentes', href: '#preguntas-frecuentes' },
 ]
 
@@ -15,7 +15,7 @@ const defaultLinks = [
   { label: 'Servicios', href: '#servicios', dropdown: true },
   { label: 'Portafolio', href: portfolioPdf, target: '_blank' },
   { label: 'Nosotros', href: '#nosotros', dropdown: true, items: aboutLinks },
-  { label: 'Contacto', href: '#contacto' },
+  { label: 'Contacto', href: '#contacto', dropdown: true, items: contactLinks },
 ]
 
 // El listado y las tarjetas comparten los textos de src/config/services.js.
@@ -142,13 +142,13 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
                     <ul
                       className={`navbar-services${items ? ' navbar-services--about' : ''}`}
                       id={`${dropdownId}-${index}`}
-                      aria-label={items ? 'Información sobre nosotros' : 'Servicios de publicidad'}
+                      aria-label={`Opciones de ${label}`}
                     >
                       {(items || services.map((service) => ({ label: service.label, href: `#${service.id}` }))).map((item) => (
-                        <li className="navbar-service-item" key={item.href}>
-                          <a href={item.href}>
+                        <li className="navbar-service-item" key={item.id || item.href}>
+                          {item.href ? <a href={item.href} target={item.target} rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}>
                             {item.label}
-                          </a>
+                          </a> : <span aria-disabled="true">{item.label}</span>}
                         </li>
                       ))}
                     </ul>

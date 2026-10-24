@@ -138,6 +138,50 @@
   text-underline-offset: 6px;
 }
 
+/* Contacto en Explora: listado accesible con clic, toque o teclado. */
+.footer-contact summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 14px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.footer-contact summary::-webkit-details-marker {
+  display: none;
+}
+
+.footer-contact summary::after {
+  content: '⌄';
+}
+
+.footer-contact[open] summary::after {
+  transform: rotate(180deg);
+}
+
+.footer-navigation .footer-contact ul {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(48, 29, 74, 0.35);
+}
+
+.footer-contact [aria-disabled='true'] {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 14px;
+}
+
+.footer-contact summary:focus-visible {
+  outline: 2px solid var(--yellow-light);
+  outline-offset: 4px;
+}
+
 .site-footer a:focus-visible {
   outline: 2px solid var(--yellow-light);
   outline-offset: 4px;
