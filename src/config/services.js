@@ -1,6 +1,9 @@
 // SERVICIOS: edita aquí los nombres y descripciones.
 // El Navbar y las tarjetas de Inicio comparten esta lista.
 // Conserva cada id para mantener los enlaces a las tarjetas.
+// label = título visible de la tarjeta y opción del Navbar.
+// description = párrafo breve de la tarjeta.
+// El orden de los objetos define el orden de las cards y del desplegable.
 export const services = [
   {
     id: 'simyc-marketing',

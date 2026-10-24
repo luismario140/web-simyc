@@ -14,21 +14,31 @@ const defaultLinks = [
 
 function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
   const [servicesOpen, setServicesOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const headerRef = useRef(null)
+  const mobileButtonRef = useRef(null)
   const servicesItemRef = useRef(null)
   const servicesButtonRef = useRef(null)
   const servicesId = useId()
+  const navigationId = useId()
 
   // Cierra el listado al pulsar Escape o hacer clic fuera de Servicios.
   useEffect(() => {
-    if (!servicesOpen) return
+    if (!servicesOpen && !mobileOpen) return
 
     const closeOutside = (event) => {
       if (!servicesItemRef.current?.contains(event.target)) setServicesOpen(false)
+      if (!headerRef.current?.contains(event.target)) setMobileOpen(false)
     }
     const closeWithEscape = (event) => {
       if (event.key !== 'Escape') return
-      setServicesOpen(false)
-      servicesButtonRef.current?.focus()
+      if (servicesOpen) {
+        setServicesOpen(false)
+        servicesButtonRef.current?.focus()
+      } else {
+        setMobileOpen(false)
+        mobileButtonRef.current?.focus()
+      }
     }
 
     document.addEventListener('pointerdown', closeOutside)
@@ -37,10 +47,22 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
       document.removeEventListener('pointerdown', closeOutside)
       document.removeEventListener('keydown', closeWithEscape)
     }
-  }, [servicesOpen])
+  }, [servicesOpen, mobileOpen])
+
+  // Si se pasa de móvil a escritorio, restablece los paneles de navegación.
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 821px)')
+    const resetMenus = () => {
+      setMobileOpen(false)
+      setServicesOpen(false)
+    }
+    desktop.addEventListener('change', resetMenus)
+    return () => desktop.removeEventListener('change', resetMenus)
+  }, [])
 
   return (
-    <header className="site-header">
+    <header className="site-header" ref={headerRef}>
+      <div className="navbar-container">
       <a className="navbar-brand" href={import.meta.env.BASE_URL} aria-label="SYMIC, ir al inicio">
         {logoSrc ? (
           <img className="navbar-logo" src={logoSrc} alt="SYMIC" />
@@ -52,7 +74,36 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
         )}
       </a>
 
-      <nav className="navbar" aria-label="Navegación principal">
+      {/* MENÚ MÓVIL: aparece hasta 820 px; permite abrirlo con toque o teclado. */}
+      <button
+        className="navbar-toggle"
+        type="button"
+        ref={mobileButtonRef}
+        aria-label={mobileOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
+        aria-expanded={mobileOpen}
+        aria-controls={navigationId}
+        onClick={() => {
+          setMobileOpen((open) => !open)
+          setServicesOpen(false)
+        }}
+      >
+        <span>{mobileOpen ? 'Cerrar' : 'Menú'}</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+          <path d={mobileOpen ? 'm6 6 12 12M6 18 18 6' : 'M4 6h16M4 12h16M4 18h16'} />
+        </svg>
+      </button>
+
+      <nav
+        className={`navbar${mobileOpen ? ' is-open' : ''}`}
+        id={navigationId}
+        aria-label="Navegación principal"
+        onClick={(event) => {
+          if (event.target.closest('a')) {
+            setMobileOpen(false)
+            setServicesOpen(false)
+          }
+        }}
+      >
         <ul className="navbar-links">
           {links.map(({ label, href, current, dropdown }) => (
             <li
@@ -99,6 +150,7 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
           ))}
         </ul>
       </nav>
+      </div>
     </header>
   )
 }

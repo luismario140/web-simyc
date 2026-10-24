@@ -1,11 +1,18 @@
 # React + Vite
 
+## Guías de edición
+
+- [Adaptación a celulares, tablets y escritorio](docs/GUIA-RESPONSIVE.md).
+- [Nuestros servicios: textos, tarjetas, colores y animación](docs/GUIA-SERVICIOS.md).
+
 ## Estructura del proyecto
 
 - `src/main.jsx`: punto de entrada de React y estilos globales.
 - `src/App.jsx`: componente principal que muestra `Home`.
 - `src/pages/Home/`: página de inicio con su componente y estilos.
-- `src/components/Navbar/`: espacio reservado para la barra de navegación; sus archivos están vacíos.
+- `src/components/Navbar/`: barra de navegación y desplegable de servicios.
+- `src/components/Services/`: sección de servicios, tarjetas y sus estilos.
+- `src/config/services.js`: nombres y descripciones compartidos por las tarjetas y el Navbar.
 - `src/assets/`: imágenes importadas desde los componentes.
 - `public/`: recursos públicos, como `icons.svg` y `favicon.svg`.
 
