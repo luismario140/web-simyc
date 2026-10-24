@@ -1,7 +1,7 @@
 /* QUIÉNES SOMOS: usa los colores y las tipografías globales de la página. */
 .about-page {
   /* FONDO DE NOSOTROS: morado intermedio; cambia este código para ajustar el tono. */
-  --about-background: #513678;
+  --about-background: #200a3d;
   position: relative;
   isolation: isolate;
   flex: 1;
