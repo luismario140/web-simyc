@@ -206,6 +206,13 @@
 }
 
 /* Los extremos se desvanecen hacia la página, sin atenuar texto ni enlaces. */
+.navbar-services--about {
+  /* Este menú está cerca del borde derecho; lo alineamos hacia dentro. */
+  right: 0;
+  left: auto;
+  width: 260px;
+}
+
 .navbar-services::before {
   content: '';
   position: absolute;

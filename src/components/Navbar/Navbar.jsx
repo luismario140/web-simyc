@@ -3,38 +3,46 @@ import brandLogo from '../../assets/Logo1.png'
 import { services } from '../../config/services.js'
 import './Navbar.css'
 
+// NOSOTROS: edita aquí los nombres y los destinos del desplegable.
+const aboutLinks = [
+  { label: 'Quiénes somos', href: '#quienes-somos' },
+  { label: 'Preguntas frecuentes', href: '#preguntas-frecuentes' },
+]
+
 const defaultLinks = [
   { label: 'Servicios', href: '#servicios', dropdown: true },
   { label: 'Portafolio', href: '#portafolio' },
-  { label: 'Nosotros', href: '#nosotros' },
+  { label: 'Nosotros', href: '#nosotros', dropdown: true, items: aboutLinks },
   { label: 'Contacto', href: '#contacto' },
 ]
 
 // El listado y las tarjetas comparten los textos de src/config/services.js.
 
 function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
-  const [servicesOpen, setServicesOpen] = useState(false)
+  const [openDropdown, setOpenDropdown] = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const headerRef = useRef(null)
   const mobileButtonRef = useRef(null)
-  const servicesItemRef = useRef(null)
-  const servicesButtonRef = useRef(null)
-  const servicesId = useId()
+  const dropdownButtonRefs = useRef({})
+  const dropdownId = useId()
   const navigationId = useId()
 
-  // Cierra el listado al pulsar Escape o hacer clic fuera de Servicios.
+  // Solo se abre un listado a la vez; Escape devuelve el foco a su botón.
   useEffect(() => {
-    if (!servicesOpen && !mobileOpen) return
+    if (!openDropdown && !mobileOpen) return
 
     const closeOutside = (event) => {
-      if (!servicesItemRef.current?.contains(event.target)) setServicesOpen(false)
-      if (!headerRef.current?.contains(event.target)) setMobileOpen(false)
+      // Dentro del Navbar, el clic cambia de listado sin colapsar antes su posición.
+      if (!headerRef.current?.contains(event.target)) {
+        setOpenDropdown(null)
+        setMobileOpen(false)
+      }
     }
     const closeWithEscape = (event) => {
       if (event.key !== 'Escape') return
-      if (servicesOpen) {
-        setServicesOpen(false)
-        servicesButtonRef.current?.focus()
+      if (openDropdown) {
+        setOpenDropdown(null)
+        dropdownButtonRefs.current[openDropdown]?.focus()
       } else {
         setMobileOpen(false)
         mobileButtonRef.current?.focus()
@@ -47,14 +55,14 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
       document.removeEventListener('pointerdown', closeOutside)
       document.removeEventListener('keydown', closeWithEscape)
     }
-  }, [servicesOpen, mobileOpen])
+  }, [openDropdown, mobileOpen])
 
   // Si se pasa de móvil a escritorio, restablece los paneles de navegación.
   useEffect(() => {
     const desktop = window.matchMedia('(min-width: 821px)')
     const resetMenus = () => {
       setMobileOpen(false)
-      setServicesOpen(false)
+      setOpenDropdown(null)
     }
     desktop.addEventListener('change', resetMenus)
     return () => desktop.removeEventListener('change', resetMenus)
@@ -84,7 +92,7 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
         aria-controls={navigationId}
         onClick={() => {
           setMobileOpen((open) => !open)
-          setServicesOpen(false)
+          setOpenDropdown(null)
         }}
       >
         <span>{mobileOpen ? 'Cerrar' : 'Menú'}</span>
@@ -97,44 +105,47 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
         className={`navbar${mobileOpen ? ' is-open' : ''}`}
         id={navigationId}
         aria-label="Navegación principal"
+        onBlur={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget)) setOpenDropdown(null)
+        }}
         onClick={(event) => {
           if (event.target.closest('a')) {
             setMobileOpen(false)
-            setServicesOpen(false)
+            setOpenDropdown(null)
           }
         }}
       >
         <ul className="navbar-links">
-          {links.map(({ label, href, current, dropdown }) => (
+          {links.map(({ label, href, current, dropdown, items }, index) => (
             <li
               className="navbar-item"
               key={href}
-              ref={dropdown ? servicesItemRef : undefined}
-              onBlur={dropdown ? (event) => {
-                if (!event.currentTarget.contains(event.relatedTarget)) setServicesOpen(false)
-              } : undefined}
             >
               {dropdown ? (
                 <>
                   <button
                     className="navbar-link"
                     type="button"
-                    ref={servicesButtonRef}
-                    aria-expanded={servicesOpen}
-                    aria-controls={servicesId}
-                    onClick={() => setServicesOpen((open) => !open)}
+                    ref={(element) => { dropdownButtonRefs.current[href] = element }}
+                    aria-expanded={openDropdown === href}
+                    aria-controls={`${dropdownId}-${index}`}
+                    onClick={() => setOpenDropdown((open) => open === href ? null : href)}
                   >
                     {label}
                     <svg className="navbar-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                       <path d="m4 6 4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </button>
-                  {servicesOpen && (
-                    <ul className="navbar-services" id={servicesId} aria-label="Servicios de publicidad">
-                      {services.map((service) => (
-                        <li className="navbar-service-item" key={service.id}>
-                          <a href={`#${service.id}`} onClick={() => setServicesOpen(false)}>
-                            {service.label}
+                  {openDropdown === href && (
+                    <ul
+                      className={`navbar-services${items ? ' navbar-services--about' : ''}`}
+                      id={`${dropdownId}-${index}`}
+                      aria-label={items ? 'Información sobre nosotros' : 'Servicios de publicidad'}
+                    >
+                      {(items || services.map((service) => ({ label: service.label, href: `#${service.id}` }))).map((item) => (
+                        <li className="navbar-service-item" key={item.href}>
+                          <a href={item.href}>
+                            {item.label}
                           </a>
                         </li>
                       ))}

@@ -1,9 +1,12 @@
 // SERVICIOS: edita aquí los nombres y descripciones.
-// El Navbar y las tarjetas de Inicio comparten esta lista.
+// El Navbar y la galería de Inicio comparten esta lista.
 // Conserva cada id para mantener los enlaces a las tarjetas.
-// label = título visible de la tarjeta y opción del Navbar.
-// description = párrafo breve de la tarjeta.
-// El orden de los objetos define el orden de las cards y del desplegable.
+// label = nombre visible en la galería y en el Navbar.
+// description = descripción accesible del enlace de cada imagen.
+// El orden de los objetos define el recorrido de la galería y del desplegable.
+// image (opcional) = ruta pública o imagen importada para la galería curva.
+// imagePosition (opcional) = encuadre CSS, como '65% 50%'.
+// Sin image se usa fondo.jpg con distintos encuadres.
 export const services = [
   {
     id: 'simyc-marketing',
