@@ -1,11 +1,11 @@
 :root {
-  --yellow-light: #fff4b8;
-  --yellow: #ffd54f;
-  --yellow-dark: #c9a000;
-  --purple-light: #f3eaff;
-  --purple: #d8b4f8;
+  --yellow-light: #F4B223;
+  --yellow: #F4B223;
+  --yellow-dark: #fb5050;
+  --purple-light: #FAEADD;
+  --purple: #5B2FB0;
   --purple-text: #57416f;
-  --white: #fff;
-  --page-background: #a895bd;
-  --navbar-background: rgba(173, 137, 209, 0.18);
+  --white: #FAEADD;
+  --page-background: #1B0B36;
+  --navbar-background: #3A1C71;
 }

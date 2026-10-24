@@ -29,7 +29,7 @@ function Footer({ socialLinks = {} }) {
     <footer className="site-footer">
       <div className="footer-content">
         <div className="footer-brand">
-          <a href={import.meta.env.BASE_URL} aria-label="SYMIC, ir al inicio">
+          <a href={import.meta.env.BASE_URL} aria-label="SIMYC, ir al inicio">
             <img src={brandLogo} alt="SYMIC" width="220" height="51" />
           </a>
           <p>
@@ -78,7 +78,7 @@ function Footer({ socialLinks = {} }) {
       </div>
 
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} SYMIC. Todos los derechos reservados.</p>
+        <p>© {new Date().getFullYear()} SIMYC. Todos los derechos reservados.</p>
       </div>
     </footer>
   )
