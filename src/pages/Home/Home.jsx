@@ -6,14 +6,14 @@ import './Home.css'
 // CONTENIDO DE LA PORTADA: modifica estos textos para actualizar lo que se ve sobre la imagen.
 const coverContent = {
   // 1. Etiquetas superiores. Los puntos separadores se agregan desde el CSS.
-  tags: ['Pantallas digitales', 'Tótems', 'Publicidad'],
+  tags: ['Publicidad', 'Creatividad', 'Logística'],
   // 2. Título: la segunda parte se resalta en amarillo.
-  title: 'Tu marca merece',
-  highlightedTitle: 'ser vista.',
+  title: 'Hacemos que las marcas se conviertan en',
+  highlightedTitle: 'experiencias.',
   // 3. Descripción debajo del título.
-  description: 'Proyecta tus productos y servicios en pantallas digitales y tótems. Acerca tu negocio a las personas con publicidad que conecta.',
+  description: 'En SIMYC unimos creatividad, estrategia y tecnología para llevar tu marca más lejos. Somos una agencia integral de publicidad, producción, eventos y soluciones empresariales.',
   // 4. Texto del botón. El número y el mensaje de WhatsApp están en src/config/whatsapp.js.
-  buttonLabel: 'Hablemos de tu marca',
+  buttonLabel: 'Conoce nuestros servicios',
 }
 
 function Home() {
