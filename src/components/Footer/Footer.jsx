@@ -1,4 +1,5 @@
 import brandLogo from '../../assets/Logo1.png'
+import { aboutHref, contactLinks, portfolioPdf } from '../../config/navigation.js'
 import './Footer.css'
 
 const socialChannels = [
@@ -42,9 +43,20 @@ function Footer({ socialLinks = {} }) {
           <h2>Explora</h2>
           <ul>
             <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#portafolio">Portafolio</a></li>
-            <li><a href="#nosotros">Nosotros</a></li>
-            <li><a href="#contacto">Contacto</a></li>
+            <li><a href={portfolioPdf} target="_blank" rel="noopener noreferrer">Portafolio</a></li>
+            <li><a href={aboutHref}>Nosotros</a></li>
+            <li>
+              <details className="footer-contact">
+                <summary>Contacto</summary>
+                <ul aria-label="Opciones de contacto">
+                  {contactLinks.map(({ id, label, href, target }) => (
+                    <li key={id}>
+                      {href ? <a href={href} target={target} rel={target === '_blank' ? 'noopener noreferrer' : undefined}>{label}</a> : <span aria-disabled="true">{label}</span>}
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </li>
           </ul>
         </nav>
 
