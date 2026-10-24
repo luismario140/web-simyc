@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import { whatsappConfig } from '../../config/whatsapp.js'
 import Services from '../../components/Services/Services.jsx'
 import './Home.css'
 
@@ -12,13 +11,12 @@ const coverContent = {
   highlightedTitle: 'experiencias.',
   // 3. Descripción debajo del título.
   description: 'En SIMYC unimos creatividad, estrategia y tecnología para llevar tu marca más lejos. Somos una agencia integral de publicidad, producción, eventos y soluciones empresariales.',
-  // 4. Texto del botón. El número y el mensaje de WhatsApp están en src/config/whatsapp.js.
+  // 4. Texto del botón. Su destino es #servicios, la sección debajo de la portada.
   buttonLabel: 'Conoce nuestros servicios',
 }
 
 function Home() {
   const heroRef = useRef(null)
-  const contactUrl = `https://wa.me/${whatsappConfig.phoneNumber}?text=${encodeURIComponent(whatsappConfig.initialMessage)}`
 
   // Movimiento del fondo al desplazarse. No afecta la posición de los textos.
   useEffect(() => {
@@ -73,10 +71,10 @@ function Home() {
           {/* Descripción: edita description en coverContent. */}
           <p className="home-cover-description">{coverContent.description}</p>
 
-          {/* Botón: abre el WhatsApp configurado, con el mensaje listo para enviar. */}
-          <a className="home-cover-button" href={contactUrl} target="_blank" rel="noopener noreferrer">
+          {/* Botón: baja a Nuestros servicios en esta misma página. */}
+          <a className="home-cover-button" href="#servicios">
             {coverContent.buttonLabel}
-            <span aria-hidden="true">↗</span>
+            <span aria-hidden="true">↓</span>
           </a>
         </div>
       </section>

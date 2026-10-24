@@ -1,6 +1,8 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import brandLogo from '../../assets/Logo1.png'
 import { services } from '../../config/services.js'
+// El PDF se importa desde docs para que Vite lo incluya también al publicar la web.
+import portfolioPdf from '../../../docs/PortafolioSIMYC.pdf?url'
 import './Navbar.css'
 
 // NOSOTROS: edita aquí los nombres y los destinos del desplegable.
@@ -11,7 +13,7 @@ const aboutLinks = [
 
 const defaultLinks = [
   { label: 'Servicios', href: '#servicios', dropdown: true },
-  { label: 'Portafolio', href: '#portafolio' },
+  { label: 'Portafolio', href: portfolioPdf, target: '_blank' },
   { label: 'Nosotros', href: '#nosotros', dropdown: true, items: aboutLinks },
   { label: 'Contacto', href: '#contacto' },
 ]
@@ -116,7 +118,7 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
         }}
       >
         <ul className="navbar-links">
-          {links.map(({ label, href, current, dropdown, items }, index) => (
+          {links.map(({ label, href, current, dropdown, items, target }, index) => (
             <li
               className="navbar-item"
               key={href}
@@ -153,7 +155,13 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
                   )}
                 </>
               ) : (
-                <a className="navbar-link" href={href} aria-current={current ? 'page' : undefined}>
+                <a
+                  className="navbar-link"
+                  href={href}
+                  target={target}
+                  rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+                  aria-current={current ? 'page' : undefined}
+                >
                   {label}
                 </a>
               )}
