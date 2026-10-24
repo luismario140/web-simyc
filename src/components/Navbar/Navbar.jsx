@@ -2,13 +2,13 @@ import { useEffect, useId, useRef, useState } from 'react'
 import brandLogo from '../../assets/Logo1.png'
 import { services } from '../../config/services.js'
 // El PDF se importa desde docs para que Vite lo incluya también al publicar la web.
-import { aboutHref, contactLinks, portfolioPdf } from '../../config/navigation.js'
+import { aboutHref, faqHref, contactLinks, portfolioPdf } from '../../config/navigation.js'
 import './Navbar.css'
 
 // NOSOTROS: edita aquí los nombres y los destinos del desplegable.
 const aboutLinks = [
   { label: 'Quiénes somos', href: aboutHref },
-  { label: 'Preguntas frecuentes', href: '#preguntas-frecuentes' },
+  { label: 'Preguntas frecuentes', href: faqHref },
 ]
 
 const defaultLinks = [

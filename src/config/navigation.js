@@ -4,6 +4,7 @@ import portfolioPdf from '../../docs/PortafolioSIMYC.pdf?url'
 export { portfolioPdf }
 // La ruta con # funciona también al publicar en un alojamiento estático.
 export const aboutHref = '#/quienes-somos'
+export const faqHref = '#/preguntas-frecuentes'
 
 // REDES SOCIALES: pega aquí los enlaces oficiales completos de SIMYC.
 // Una cadena vacía mantiene la opción visible sin enviar a una cuenta incorrecta.
