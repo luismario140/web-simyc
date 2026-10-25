@@ -6,6 +6,7 @@ import WhatsAppBubble from './components/WhatsAppBubble/WhatsAppBubble.jsx'
 import { whatsappConfig } from './config/whatsapp.js'
 import About from './pages/About/About.jsx'
 import FAQ from './pages/FAQ/FAQ.jsx'
+import ServiceInquiryProvider from './components/ServiceInquiry/ServiceInquiryProvider.jsx'
 import { aboutHref, faqHref, socialLinks } from './config/navigation.js'
 
 const subscribeToLocation = (callback) => {
@@ -35,14 +36,14 @@ function App() {
   }, [page])
 
   return (
-    <>
+    <ServiceInquiryProvider>
       <Navbar />
       <main id="inicio" className="app-main" tabIndex={-1}>
         <Page />
       </main>
       <Footer socialLinks={socialLinks} />
       <WhatsAppBubble {...whatsappConfig} />
-    </>
+    </ServiceInquiryProvider>
   )
 }
 

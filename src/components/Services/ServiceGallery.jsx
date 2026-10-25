@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import serviceBackground from '../../assets/fondo.jpg'
 import { services } from '../../config/services.js'
-import { whatsappConfig } from '../../config/whatsapp.js'
+import { ServiceInquiryContext } from '../ServiceInquiry/ServiceInquiryContext.js'
 import './ServiceGallery.css'
 
 // Repetimos las imágenes para que el recorrido no tenga un principio ni un final visible.
@@ -9,6 +9,7 @@ const galleryItems = Array.from({ length: 3 }, () => services).flat()
 const imagePositions = ['15% 50%', '65% 45%', '85% 75%', '60% 80%', '90% 20%', '25% 25%']
 
 function ServiceGallery() {
+  const openInquiry = useContext(ServiceInquiryContext)
   const stageRef = useRef(null)
   const distanceRef = useRef(0)
 
@@ -109,7 +110,7 @@ function ServiceGallery() {
       syncAnimation()
     }
 
-    // Los enlaces del Navbar ahora apuntan a las imágenes, no a las cards eliminadas.
+    // Conserva el centrado de la galería al entrar desde un enlace directo al servicio.
     const navigateToService = () => {
       const index = services.findIndex((service) => `#${service.id}` === window.location.hash)
       if (index < 0) return
@@ -124,7 +125,7 @@ function ServiceGallery() {
 
     const followServiceLink = (event) => {
       const link = event.target.closest('a[href^="#"]')
-      if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+      if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
       const hash = link.getAttribute('href')
       if (!services.some((service) => `#${service.id}` === hash)) return
       event.preventDefault()
@@ -183,11 +184,14 @@ function ServiceGallery() {
           >
             <a
               className="service-gallery-link"
-              href={`https://wa.me/${whatsappConfig.phoneNumber}?text=${encodeURIComponent(`Hola, quiero conocer más sobre ${service.label}.`)}`}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`#${service.id}`}
+              aria-haspopup="dialog"
+              onClick={(event) => {
+                event.preventDefault()
+                openInquiry(service.id)
+              }}
               tabIndex={index >= services.length ? -1 : undefined}
-              aria-label={`${service.label}: ${service.description} Consultar por WhatsApp.`}
+              aria-label={`${service.label}: ${service.description} Abrir formulario de consulta.`}
             >
             {/* IMÁGENES: agrega image e imagePosition al servicio en src/config/services.js.
                 Sin imagen propia se reutiliza fondo.jpg con un encuadre diferente. */}

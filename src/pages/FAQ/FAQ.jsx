@@ -2,6 +2,7 @@ import { ArrowUpRight, ChevronDown, CircleHelp, Mail, MessageCircle } from 'luci
 import NeuralBackground from '../../components/NeuralBackground/NeuralBackground.jsx'
 import { faqContent } from '../../config/faq.js'
 import { socialLinks } from '../../config/navigation.js'
+import { services } from '../../config/services.js'
 import { whatsappConfig } from '../../config/whatsapp.js'
 import resource1 from '../../assets/imgrecurses/recurso1.png'
 import resource2 from '../../assets/imgrecurses/recurso2.png'
@@ -12,7 +13,34 @@ import './FAQ.css'
 const backgroundResources = [resource1, resource2, resource3, resource4]
 
 function FAQ() {
-  const whatsappHref = `https://wa.me/${whatsappConfig.phoneNumber}?text=${encodeURIComponent(whatsappConfig.initialMessage)}`
+  function handleQuestionSubmit(event) {
+    event.preventDefault()
+    const form = event.currentTarget
+    const data = new FormData(form)
+    const name = data.get('name').trim()
+    const company = data.get('company').trim()
+    const service = data.get('service')
+    const question = data.get('question').trim()
+
+    if (!question) {
+      const field = form.elements.namedItem('question')
+      field.setCustomValidity('Escribe tu consulta para continuar.')
+      field.reportValidity()
+      return
+    }
+
+    const message = [
+      'Hola, tengo una consulta desde la página de preguntas frecuentes de SIMYC.',
+      '',
+      `Nombre: ${name}`,
+      ...(company ? [`Empresa: ${company}`] : []),
+      `Servicio: ${service}`,
+      '',
+      `Consulta: ${question}`,
+    ].join('\n')
+
+    window.open(`https://wa.me/${whatsappConfig.phoneNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer')
+  }
 
   return (
     <article className="faq-page" aria-labelledby="faq-title">
@@ -56,9 +84,24 @@ function FAQ() {
             <span className="faq-contact-icon" aria-hidden="true"><CircleHelp size={30} strokeWidth={1.4} /></span>
             <h2 id="faq-contact-title">{faqContent.contactTitle}</h2>
             <p>{faqContent.contactDescription}</p>
-            <a className="faq-whatsapp" href={whatsappHref} target="_blank" rel="noopener noreferrer">
-              <MessageCircle size={19} aria-hidden="true" /> Escríbenos por WhatsApp
-            </a>
+            <form className="faq-contact-form" onSubmit={handleQuestionSubmit}>
+              <label htmlFor="faq-name">Nombre <span aria-hidden="true">*</span></label>
+              <input id="faq-name" name="name" autoComplete="name" required maxLength={100} pattern=".*\S.*" title="Escribe tu nombre." />
+              <label htmlFor="faq-company">Empresa <span className="faq-field-optional">(opcional)</span></label>
+              <input id="faq-company" name="company" autoComplete="organization" maxLength={120} />
+              <label htmlFor="faq-service">Servicio de interés <span aria-hidden="true">*</span></label>
+              <select id="faq-service" name="service" required defaultValue="">
+                <option value="" disabled>Selecciona una opción</option>
+                {services.map(({ id, label }) => <option key={id} value={label}>{label}</option>)}
+                <option value="Consulta general">Consulta general / No estoy seguro</option>
+              </select>
+              <label htmlFor="faq-question">Tu consulta <span aria-hidden="true">*</span></label>
+              <textarea id="faq-question" name="question" rows={4} required maxLength={1500} placeholder="Cuéntanos qué necesitas y los detalles de tu proyecto." onInput={(event) => event.currentTarget.setCustomValidity('')} />
+              <p className="faq-form-note" id="faq-form-note">Los campos con * son obligatorios. Al continuar, se abrirá WhatsApp con tu consulta lista para enviar.</p>
+              <button className="faq-whatsapp" type="submit" aria-describedby="faq-form-note">
+                <MessageCircle size={19} aria-hidden="true" /> Continuar a WhatsApp
+              </button>
+            </form>
             <a className="faq-email" href={socialLinks.email}><Mail size={18} aria-hidden="true" /> Envíanos un correo</a>
           </aside>
         </div>

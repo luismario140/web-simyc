@@ -1,4 +1,5 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useContext, useEffect, useId, useRef, useState } from 'react'
+import { ServiceInquiryContext } from '../ServiceInquiry/ServiceInquiryContext.js'
 import brandLogo from '../../assets/Logo1.png'
 import { services } from '../../config/services.js'
 // El PDF se importa desde docs para que Vite lo incluya también al publicar la web.
@@ -21,6 +22,7 @@ const defaultLinks = [
 // El listado y las tarjetas comparten los textos de src/config/services.js.
 
 function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
+  const openInquiry = useContext(ServiceInquiryContext)
   const [openDropdown, setOpenDropdown] = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const headerRef = useRef(null)
@@ -144,9 +146,14 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
                       id={`${dropdownId}-${index}`}
                       aria-label={`Opciones de ${label}`}
                     >
-                      {(items || services.map((service) => ({ label: service.label, href: `#${service.id}` }))).map((item) => (
+                      {(items || services.map((service) => ({ id: service.id, label: service.label, href: `#${service.id}`, inquiry: true }))).map((item) => (
                         <li className="navbar-service-item" key={item.id || item.href}>
-                          {item.href ? <a href={item.href} target={item.target} rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}>
+                          {item.href ? <a href={item.href} target={item.target} rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
+                            aria-haspopup={item.inquiry ? 'dialog' : undefined}
+                            onClick={item.inquiry ? (event) => {
+                              event.preventDefault()
+                              openInquiry(item.id)
+                            } : undefined}>
                             {item.label}
                           </a> : <span aria-disabled="true">{item.label}</span>}
                         </li>

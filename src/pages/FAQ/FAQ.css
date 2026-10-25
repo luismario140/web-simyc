@@ -140,13 +140,38 @@
 .faq-contact-icon { display: grid; place-items: center; width: 60px; height: 60px; margin-bottom: 26px; border: 1px solid rgba(244, 178, 35, 0.3); border-radius: 18px; color: var(--yellow-light); }
 .faq-contact h2 { margin: 0 0 16px; color: var(--yellow-light); font-size: 23px; line-height: 1.4; }
 .faq-contact p { margin-bottom: 24px; font-size: 14px; line-height: 1.85; }
-.faq-contact a { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12px; border-radius: 10px; font-size: 13px; line-height: 1.6; text-align: center; text-decoration: none; }
-.faq-contact a svg { flex-shrink: 0; }
+.faq-contact a,
+.faq-contact button { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12px; border-radius: 10px; font: inherit; font-size: 13px; line-height: 1.6; text-align: center; text-decoration: none; }
+.faq-contact a svg,
+.faq-contact button svg { flex-shrink: 0; }
+.faq-contact-form { display: grid; gap: 10px; }
+.faq-contact-form label { margin-top: 6px; color: var(--white); font-size: 14px; }
+.faq-field-optional { opacity: 0.75; font-size: 12px; }
+.faq-contact-form input,
+.faq-contact-form select,
+.faq-contact-form textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  padding: 12px;
+  border: 1px solid rgba(250, 234, 221, 0.3);
+  border-radius: 10px;
+  background: #28133e;
+  color: var(--white);
+  font: inherit;
+  font-size: 16px;
+  color-scheme: dark;
+}
+.faq-contact-form textarea { resize: vertical; }
+.faq-contact-form textarea::placeholder { color: rgba(250, 234, 221, 0.65); }
+.faq-contact-form .faq-form-note { margin: 4px 0; font-size: 12px; line-height: 1.7; }
+.faq-contact-form button { width: 100%; border: 0; cursor: pointer; }
 .faq-whatsapp { background: var(--yellow-light); color: var(--page-background); font-weight: 600; }
 .faq-whatsapp:hover { background: var(--white); }
 .faq-email { margin-top: 12px; border: 1px solid rgba(250, 234, 221, 0.22); color: var(--white); }
 .faq-email:hover { border-color: var(--yellow-light); }
 .faq-page a:focus-visible,
+.faq-contact-form :is(input, select, textarea, button):focus-visible,
 .faq-item summary:focus-visible { outline: 2px solid var(--yellow-light); outline-offset: 4px; }
 
 @media (max-width: 920px) {
