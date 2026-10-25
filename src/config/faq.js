@@ -49,5 +49,5 @@ export const faqContent = {
   ],
   // PANEL DE CONTACTO: los destinos se toman de navigation.js y whatsapp.js.
   contactTitle: '¿Tienes otra pregunta?',
-  contactDescription: 'Cuéntanos sobre tu proyecto y el servicio que te interesa.',
+  contactDescription: 'Completa el formulario para que podamos orientarte más rápido sobre tu proyecto o resolver tu pregunta.',
 }
