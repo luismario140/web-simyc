@@ -105,7 +105,7 @@ function ServiceInquiryDialog({ service, triggerRef, onClose }) {
             </div>
           </fieldset>
           <footer className="inquiry-footer">
-            <p id="inquiry-send-note">Abriremos WhatsApp con tus respuestas organizadas. Allí podrás revisar el mensaje y enviarlo para iniciar la conversación.</p>
+            <p id="inquiry-send-note">Al continuar, tus respuestas se compartirán con WhatsApp mediante un enlace para preparar el mensaje. Allí podrás revisarlo y confirmar el envío al chat. No incluyas contraseñas, documentos de identidad ni información sensible.</p>
             <button className="inquiry-submit" type="submit" aria-describedby="inquiry-send-note">Continuar a WhatsApp <ArrowUpRight size={19} aria-hidden="true" /></button>
           </footer>
         </form>

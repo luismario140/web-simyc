@@ -29,7 +29,15 @@ function App() {
     document.title = 'Simyc'
     const frame = window.requestAnimationFrame(() => {
       if (page !== 'home' || !window.location.hash) window.scrollTo(0, 0)
-      else document.getElementById(decodeURIComponent(window.location.hash.slice(1)))?.scrollIntoView()
+      else {
+        let targetId = ''
+        try {
+          targetId = decodeURIComponent(window.location.hash.slice(1))
+        } catch {
+          // Un fragmento inválido no debe interrumpir el enfoque de la página.
+        }
+        if (targetId) document.getElementById(targetId)?.scrollIntoView()
+      }
       document.querySelector('.app-main')?.focus({ preventScroll: true })
     })
     return () => window.cancelAnimationFrame(frame)

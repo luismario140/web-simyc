@@ -12,6 +12,19 @@ dist
 dist-ssr
 *.local
 
+# Configuración privada; las plantillas deben contener sólo valores de ejemplo.
+.env
+.env.*
+!.env.example
+.npmrc
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Las copias privadas no deben publicarse como parte del repositorio.
+backups/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -97,7 +97,7 @@ function FAQ() {
               </select>
               <label htmlFor="faq-question">Tu consulta <span aria-hidden="true">*</span></label>
               <textarea id="faq-question" name="question" rows={4} required maxLength={1500} placeholder="Cuéntanos qué necesitas y los detalles de tu proyecto." onInput={(event) => event.currentTarget.setCustomValidity('')} />
-              <p className="faq-form-note" id="faq-form-note">Los campos con * son obligatorios. Al continuar, se abrirá WhatsApp con tu consulta lista para enviar.</p>
+              <p className="faq-form-note" id="faq-form-note">Los campos con * son obligatorios. Al continuar, tus respuestas se compartirán con WhatsApp mediante un enlace para preparar el mensaje; allí confirmarás el envío al chat. No incluyas contraseñas, documentos de identidad ni información sensible.</p>
               <button className="faq-whatsapp" type="submit" aria-describedby="faq-form-note">
                 <MessageCircle size={19} aria-hidden="true" /> Continuar a WhatsApp
               </button>
