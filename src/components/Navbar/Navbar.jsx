@@ -1,5 +1,4 @@
-import { useContext, useEffect, useId, useRef, useState } from 'react'
-import { ServiceInquiryContext } from '../ServiceInquiry/ServiceInquiryContext.js'
+import { useEffect, useId, useRef, useState } from 'react'
 import brandLogo from '../../assets/Logo1.png'
 import { services } from '../../config/services.js'
 // El PDF se importa desde docs para que Vite lo incluya también al publicar la web.
@@ -22,8 +21,8 @@ const defaultLinks = [
 // El listado y las tarjetas comparten los textos de src/config/services.js.
 
 function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
-  const openInquiry = useContext(ServiceInquiryContext)
   const [openDropdown, setOpenDropdown] = useState(null)
+  const [selectedService, setSelectedService] = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const headerRef = useRef(null)
   const mobileButtonRef = useRef(null)
@@ -39,6 +38,7 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
       // Dentro del Navbar, el clic cambia de listado sin colapsar antes su posición.
       if (!headerRef.current?.contains(event.target)) {
         setOpenDropdown(null)
+        setSelectedService(null)
         setMobileOpen(false)
       }
     }
@@ -46,6 +46,7 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
       if (event.key !== 'Escape') return
       if (openDropdown) {
         setOpenDropdown(null)
+        setSelectedService(null)
         dropdownButtonRefs.current[openDropdown]?.focus()
       } else {
         setMobileOpen(false)
@@ -67,6 +68,7 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
     const resetMenus = () => {
       setMobileOpen(false)
       setOpenDropdown(null)
+      setSelectedService(null)
     }
     desktop.addEventListener('change', resetMenus)
     return () => desktop.removeEventListener('change', resetMenus)
@@ -97,6 +99,7 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
         onClick={() => {
           setMobileOpen((open) => !open)
           setOpenDropdown(null)
+          setSelectedService(null)
         }}
       >
         <span>{mobileOpen ? 'Cerrar' : 'Menú'}</span>
@@ -110,12 +113,16 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
         id={navigationId}
         aria-label="Navegación principal"
         onBlur={(event) => {
-          if (!event.currentTarget.contains(event.relatedTarget)) setOpenDropdown(null)
+          if (!event.currentTarget.contains(event.relatedTarget)) {
+            setOpenDropdown(null)
+            setSelectedService(null)
+          }
         }}
         onClick={(event) => {
           if (event.target.closest('a')) {
             setMobileOpen(false)
             setOpenDropdown(null)
+            setSelectedService(null)
           }
         }}
       >
@@ -133,7 +140,10 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
                     ref={(element) => { dropdownButtonRefs.current[href] = element }}
                     aria-expanded={openDropdown === href}
                     aria-controls={`${dropdownId}-${index}`}
-                    onClick={() => setOpenDropdown((open) => open === href ? null : href)}
+                    onClick={() => {
+                      setOpenDropdown((open) => open === href ? null : href)
+                      setSelectedService(null)
+                    }}
                   >
                     {label}
                     <svg className="navbar-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -146,16 +156,30 @@ function Navbar({ logoSrc = brandLogo, links = defaultLinks }) {
                       id={`${dropdownId}-${index}`}
                       aria-label={`Opciones de ${label}`}
                     >
-                      {(items || services.map((service) => ({ id: service.id, label: service.label, href: `#${service.id}`, inquiry: true }))).map((item) => (
+                      {(items || services.map((service) => ({ id: service.id, label: service.label, description: service.description }))).map((item) => (
                         <li className="navbar-service-item" key={item.id || item.href}>
-                          {item.href ? <a href={item.href} target={item.target} rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
-                            aria-haspopup={item.inquiry ? 'dialog' : undefined}
-                            onClick={item.inquiry ? (event) => {
-                              event.preventDefault()
-                              openInquiry(item.id)
-                            } : undefined}>
-                            {item.label}
-                          </a> : <span aria-disabled="true">{item.label}</span>}
+                          {item.description ? (
+                            <button
+                              className="navbar-service-button"
+                              type="button"
+                              aria-expanded={selectedService === item.id}
+                              aria-controls={`${dropdownId}-description-${item.id}`}
+                              onClick={() => setSelectedService((selected) => selected === item.id ? null : item.id)}
+                            >
+                              {item.label}
+                            </button>
+                          ) : item.href ? (
+                            <a href={item.href} target={item.target} rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}>
+                              {item.label}
+                            </a>
+                          ) : (
+                            <span aria-disabled="true">{item.label}</span>
+                          )}
+                          {item.description && selectedService === item.id && (
+                            <p className="navbar-service-description" id={`${dropdownId}-description-${item.id}`}>
+                              {item.description}
+                            </p>
+                          )}
                         </li>
                       ))}
                     </ul>

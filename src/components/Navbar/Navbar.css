@@ -246,15 +246,38 @@
 }
 
 .site-header .navbar .navbar-service-item a,
-.site-header .navbar .navbar-service-item a:visited {
+.site-header .navbar .navbar-service-item a:visited,
+.site-header .navbar .navbar-service-button {
   display: block;
-  margin: -14px;
-  padding: 14px;
   color: #fff;
   text-decoration: none;
 }
 
-.navbar-service-item a:focus-visible {
+.site-header .navbar .navbar-service-item a,
+.site-header .navbar .navbar-service-item a:visited {
+  margin: -14px;
+  padding: 14px;
+}
+
+.site-header .navbar .navbar-service-button {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.navbar-service-description {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.navbar-service-item a:focus-visible,
+.navbar-service-button:focus-visible {
   outline: 2px solid var(--yellow-light);
   outline-offset: -4px;
   border-radius: 8px;
