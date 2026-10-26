@@ -20,11 +20,15 @@
   position: absolute;
   inset: -18% 0;
   z-index: -1;
-  background-image: url('../../assets/fondo.jpg');
+  background-image: url('../../assets/optimized/fondo.webp');
   background-size: cover;
   background-position: center 55%;
   transform: translate3d(0, var(--background-offset, 0px), 0);
   will-change: transform;
+}
+
+@media (max-width: 600px) {
+  .home-cover-image { background-image: url('../../assets/optimized/fondo-mobile.webp'); }
 }
 
 .home-cover::after {
