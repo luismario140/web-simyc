@@ -1,13 +1,14 @@
-import { useEffect, useSyncExternalStore } from 'react'
+import { lazy, Suspense, useEffect, useSyncExternalStore } from 'react'
 import Navbar from './components/Navbar/Navbar.jsx'
 import Footer from './components/Footer/Footer.jsx'
 import Home from './pages/Home/Home.jsx'
 import WhatsAppBubble from './components/WhatsAppBubble/WhatsAppBubble.jsx'
 import { whatsappConfig } from './config/whatsapp.js'
-import About from './pages/About/About.jsx'
-import FAQ from './pages/FAQ/FAQ.jsx'
 import ServiceInquiryProvider from './components/ServiceInquiry/ServiceInquiryProvider.jsx'
 import { aboutHref, faqHref, socialLinks } from './config/navigation.js'
+
+const About = lazy(() => import('./pages/About/About.jsx'))
+const FAQ = lazy(() => import('./pages/FAQ/FAQ.jsx'))
 
 const subscribeToLocation = (callback) => {
   window.addEventListener('hashchange', callback)
@@ -47,7 +48,9 @@ function App() {
     <ServiceInquiryProvider>
       <Navbar />
       <main id="inicio" className="app-main" tabIndex={-1}>
-        <Page />
+        <Suspense fallback={<p className="page-loading" role="status">Cargando página…</p>}>
+          <Page />
+        </Suspense>
       </main>
       <Footer socialLinks={socialLinks} />
       <WhatsAppBubble {...whatsappConfig} />

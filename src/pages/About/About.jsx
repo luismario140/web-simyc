@@ -26,7 +26,7 @@ function About() {
         {/* ESCALERA: el CSS alterna los lados; en celular conserva el orden texto → imagen.
             Textos, imágenes y encuadres se editan en src/config/about.js. */}
         <div className="about-sections">
-          {aboutContent.sections.map(({ id, title, paragraphs, image, imageAlt, imagePosition }) => (
+          {aboutContent.sections.map(({ id, title, paragraphs, image, imageSrcSet, imageAlt, imagePosition }, index) => (
             <section className="about-section" key={id} aria-labelledby={`about-${id}`}>
               <div className="about-section-copy">
                 <h2 id={`about-${id}`}>{title}</h2>
@@ -34,7 +34,7 @@ function About() {
               </div>
               {/* Sin foto, queda un fondo decorativo sin textos ni iconos de ejemplo. */}
               <div className={`about-section-media${image ? '' : ' is-empty'}`} aria-hidden={!image || undefined}>
-                {image && <img src={image} alt={imageAlt} style={{ objectPosition: imagePosition }} loading="lazy" decoding="async" />}
+                {image && <img src={image} srcSet={imageSrcSet} sizes="(max-width: 760px) 90vw, (max-width: 1280px) 42vw, 520px" width={1152} height={768} alt={imageAlt} style={{ objectPosition: imagePosition }} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />}
               </div>
             </section>
           ))}

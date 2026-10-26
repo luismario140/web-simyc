@@ -67,6 +67,13 @@ select {
   min-width: 0;
 }
 
+.page-loading {
+  min-height: 70svh;
+  margin: 0;
+  padding: calc(var(--header-height) + 64px) var(--page-gutter);
+  color: var(--white);
+}
+
 #root {
   position: relative;
   width: 100%;

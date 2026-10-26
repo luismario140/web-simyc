@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef } from 'react'
-import serviceBackground from '../../assets/fondo.jpg'
+import serviceBackground from '../../assets/optimized/fondo.webp'
 import { services } from '../../config/services.js'
 import { ServiceInquiryContext } from '../ServiceInquiry/ServiceInquiryContext.js'
 import './ServiceGallery.css'

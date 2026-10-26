@@ -25,7 +25,8 @@ export const aboutContent = {
       id: 'proposito',
       title: 'Propósito',
       paragraphs: ['Crear conexiones que permitan a marcas, instituciones y comunidades avanzar, hacerse visibles y convertir sus ideas en resultados.'], // Agrega aquí el texto de Propósito.
-      image: new URL('../assets/imgabout/somos1.png', import.meta.url).href,
+      image: new URL('../assets/optimized/somos1-640.webp', import.meta.url).href,
+      imageSrcSet: `${new URL('../assets/optimized/somos1-640.webp', import.meta.url).href} 640w, ${new URL('../assets/optimized/somos1-1152.webp', import.meta.url).href} 1152w`,
       imageAlt: '',
       imagePosition: '50% 50%',
     },
@@ -33,7 +34,8 @@ export const aboutContent = {
       id: 'mision',
       title: 'Misión',
       paragraphs: ['Integrar publicidad, creatividad y logística para ofrecer soluciones estratégicas, confiables y adaptadas a las necesidades de cada proyecto.'], // Agrega aquí el texto de Misión.
-      image: new URL('../assets/imgabout/somos2.png', import.meta.url).href,
+      image: new URL('../assets/optimized/somos2-640.webp', import.meta.url).href,
+      imageSrcSet: `${new URL('../assets/optimized/somos2-640.webp', import.meta.url).href} 640w, ${new URL('../assets/optimized/somos2-1152.webp', import.meta.url).href} 1152w`,
       imageAlt: '',
       imagePosition: '50% 50%',
     },
@@ -41,7 +43,8 @@ export const aboutContent = {
       id: 'vision',
       title: 'Visión',
       paragraphs: ['Consolidar a SIMYC como un medio referente de comunicación, medios y operación en el Pacífico colombiano, reconocido por su innovación, cumplimiento e impacto.'], // Agrega aquí el texto de Visión.
-      image: new URL('../assets/imgabout/somos3.png', import.meta.url).href,
+      image: new URL('../assets/optimized/somos3-640.webp', import.meta.url).href,
+      imageSrcSet: `${new URL('../assets/optimized/somos3-640.webp', import.meta.url).href} 640w, ${new URL('../assets/optimized/somos3-1152.webp', import.meta.url).href} 1152w`,
       imageAlt: '',
       imagePosition: '50% 50%',
     },
@@ -49,7 +52,8 @@ export const aboutContent = {
       id: 'ambicion',
       title: 'Ambición',
       paragraphs: ['Pasar de operar servicios aislados a liderar una red regional capaz de conectar oportunidades, talento y territorio.'], // Agrega aquí el texto de Ambición.
-      image: new URL('../assets/imgabout/somos4.png', import.meta.url).href,
+      image: new URL('../assets/optimized/somos4-640.webp', import.meta.url).href,
+      imageSrcSet: `${new URL('../assets/optimized/somos4-640.webp', import.meta.url).href} 640w, ${new URL('../assets/optimized/somos4-1152.webp', import.meta.url).href} 1152w`,
       imageAlt: '',
       imagePosition: '50% 50%',
     },
