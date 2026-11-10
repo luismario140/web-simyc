@@ -1,0 +1,8 @@
+# La entrada de Vite debe comprobarse de nuevo después de cada publicación.
+DirectoryIndex index.html
+
+<IfModule mod_headers.c>
+  <FilesMatch "^index\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
