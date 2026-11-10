@@ -1,5 +1,5 @@
 import brandLogo from '../../assets/Logo1.png'
-import { aboutHref, portfolioPdf, socialLinks as defaultSocialLinks } from '../../config/navigation.js'
+import { aboutHref, reviewsHref, portfolioPdf, socialLinks as defaultSocialLinks } from '../../config/navigation.js'
 import './Footer.css'
 
 const socialChannels = [
@@ -45,6 +45,7 @@ function Footer({ socialLinks = defaultSocialLinks }) {
             <li><a href="#servicios">Servicios</a></li>
             <li><a href={portfolioPdf} target="_blank" rel="noopener noreferrer">Portafolio</a></li>
             <li><a href={aboutHref}>Nosotros</a></li>
+            <li><a href={reviewsHref}>Reseñas</a></li>
             {/* Contacto directo al correo; el desplegable pertenece al Navbar. */}
             <li><a href={socialLinks.email || defaultSocialLinks.email}>Contacto</a></li>
           </ul>

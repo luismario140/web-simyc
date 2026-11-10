@@ -1,0 +1,130 @@
+.reviews-page {
+  flex: 1;
+  min-width: 0;
+  overflow: clip;
+  padding: calc(var(--header-height) + clamp(48px, 7vw, 88px)) 0 100px;
+  color: var(--white);
+  background:
+    radial-gradient(ellipse at 50% 60%, #5b2fb033, transparent 65%),
+    linear-gradient(#200a3d, var(--page-background));
+}
+
+.reviews-heading {
+  max-width: 960px;
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+
+.reviews-eyebrow {
+  color: var(--yellow);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.reviews-heading h1 {
+  margin: 18px 0 28px;
+  color: var(--white);
+  font-size: clamp(38px, 6vw, 72px);
+  line-height: 1.1;
+}
+
+.reviews-story {
+  color: #faeaddd9;
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.9;
+  text-wrap: pretty;
+}
+
+.reviews-story strong {
+  display: block;
+  margin-top: 16px;
+  color: var(--white);
+  font-weight: 500;
+}
+
+.reviews-carousel {
+  margin: 36px auto 0;
+  max-width: 1440px;
+}
+
+.reviews-stage {
+  --photo-size: clamp(220px, 36vw, 440px);
+  position: relative;
+  height: calc(var(--photo-size) + 100px);
+  perspective: 1200px;
+  isolation: isolate;
+}
+
+.reviews-stage::before {
+  content: '';
+  position: absolute;
+  inset: 25% 15% 0;
+  background: radial-gradient(ellipse, #985be33b, transparent 70%);
+  pointer-events: none;
+}
+
+.reviews-slide {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  width: var(--photo-size);
+  height: var(--photo-size);
+  margin: 0;
+  transform: translateX(calc(-50% + var(--offset) * 57%))
+    translateZ(calc(var(--distance) * -155px)) rotateY(calc(var(--offset) * -18deg));
+  opacity: calc(1 - var(--distance) * 0.23);
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1), opacity 900ms;
+}
+
+.reviews-photo {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid #faeadd38;
+  border-radius: 20px;
+  background: #160b26;
+  box-shadow: 0 24px 60px #08021180;
+}
+
+.reviews-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Palpitar discreto sin interferir con la transformación 3D de la tarjeta. */
+.reviews-slide.is-active .reviews-photo {
+  border-color: #f4b22399;
+  animation: reviews-heartbeat 3.6s ease-in-out infinite;
+}
+
+@keyframes reviews-heartbeat {
+  0%, 35%, 100% { transform: scale(1); }
+  12% { transform: scale(1.018); }
+  23% { transform: scale(1.006); }
+  28% { transform: scale(1.012); }
+}
+
+.reviews-caption {
+  margin: 22px auto 0;
+  padding-inline: var(--page-gutter);
+  color: #faeadda6;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.reviews-caption span { padding-inline: 6px; color: var(--yellow); }
+
+@media (max-width: 640px) {
+  .reviews-stage { --photo-size: min(68vw, 340px); perspective: 850px; }
+  .reviews-slide { border-radius: 14px; }
+  .reviews-carousel { margin-top: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reviews-slide { transition: none; }
+  .reviews-slide.is-active .reviews-photo { animation: none; }
+}

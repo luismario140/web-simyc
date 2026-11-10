@@ -5,10 +5,11 @@ import Home from './pages/Home/Home.jsx'
 import WhatsAppBubble from './components/WhatsAppBubble/WhatsAppBubble.jsx'
 import { whatsappConfig } from './config/whatsapp.js'
 import ServiceInquiryProvider from './components/ServiceInquiry/ServiceInquiryProvider.jsx'
-import { aboutHref, faqHref, socialLinks } from './config/navigation.js'
+import { aboutHref, faqHref, reviewsHref, socialLinks } from './config/navigation.js'
 
 const About = lazy(() => import('./pages/About/About.jsx'))
 const FAQ = lazy(() => import('./pages/FAQ/FAQ.jsx'))
+const Reviews = lazy(() => import('./pages/Reviews/Reviews.jsx'))
 
 const subscribeToLocation = (callback) => {
   window.addEventListener('hashchange', callback)
@@ -17,13 +18,14 @@ const subscribeToLocation = (callback) => {
 const getPage = () => {
   const hash = window.location.hash
   if (hash === aboutHref) return 'about'
+  if (hash === reviewsHref) return 'reviews'
   if (hash === faqHref || hash === '#preguntas-frecuentes') return 'faq'
   return 'home'
 }
 
 function App() {
   const page = useSyncExternalStore(subscribeToLocation, getPage)
-  const Page = page === 'about' ? About : page === 'faq' ? FAQ : Home
+  const Page = page === 'about' ? About : page === 'faq' ? FAQ : page === 'reviews' ? Reviews : Home
 
   // Mantiene atrás/adelante y los enlaces directos sin exigir rutas al servidor.
   useEffect(() => {
